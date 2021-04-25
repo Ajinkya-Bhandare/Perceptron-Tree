@@ -9,10 +9,18 @@ class Log_Reg():
         self.iterations = iterations
         print(self.iterations,self.learning_rate)
 
+    #Sigmoid activation (no approximation)
     def sigmoid(self,x):
         return 1/(1+e**-x)
 
     def sigmoid_appx(self,X):
+        '''
+        Approximation of sigmoid activation function.
+        
+        F(x) =   0              if x < -2
+                 1              if x > 2
+                 x/4 + 0.5      if -2 < x < 2
+        '''
         w = []
         for i in X:
             if i<-2:
@@ -22,11 +30,13 @@ class Log_Reg():
             else :
                 w.append(x/4+1/2)
         return np.array(w)
-
+    
+    #prediction on a given input
     def pred(self,X,a,b):
         W = np.dot(X,a)+b
         return self.sigmoid(W)
-
+    
+    #cross entropy loss
     def loss(self,Y):
         if Y==0:
             print("hello1")
@@ -36,6 +46,7 @@ class Log_Reg():
         else:
             return -np.log(Y)
 
+    #calculation of cost function using cross entropy loss
     def cost(self,X,Y,a,b):
         Y_pred = self.pred(X,a,b)
         cost = 0
@@ -47,7 +58,8 @@ class Log_Reg():
             else:
                 cost+=self.loss(Y_pred[i])
         return cost
-
+    
+    #gradient calculation
     def grad(self,X,Y,a,b,lr=0.05):
         c = self.cost(X,Y,a,b)
         ca = []
@@ -57,16 +69,19 @@ class Log_Reg():
         ca = np.array(ca)
         cb = c-self.cost(X,Y,a,b+lr)
         return (ca)/lr,cb/lr
-
+    
+    #gradient descent
     def update_weight(self,a,b,X,Y):
         (grad_a,grad_b) = self.grad(X,Y,a,b)
         self.a = self.a + grad_a * self.learning_rate
         self.b = self.b + grad_b * self.learning_rate
-
+    
+    #random initialization
     def random_init(self):
         self.a = np.ones(self.num_features)
         self.b = 1
-        
+    
+    #fit parameters using training data
     def fit(self,X,Y):
         self.X = X
         self.Y = Y
