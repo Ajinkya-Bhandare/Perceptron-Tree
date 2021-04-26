@@ -1,7 +1,7 @@
 import numpy as np
 import log as l
 
-e = 2.7
+e = 2.71828
 
 class Log_Reg():
     def __init__( self, learning_rate, iterations ) :        
@@ -13,6 +13,7 @@ class Log_Reg():
     def sigmoid(self,x):
         return 1/(1+e**-x)
 
+    #Sigmoid activation with approximation (Not used in this class. For usage see from line 100)
     def sigmoid_appx(self,X):
         '''
         Approximation of sigmoid activation function.
@@ -36,7 +37,7 @@ class Log_Reg():
         W = np.dot(X,a)+b
         return self.sigmoid(W)
     
-    #cross entropy loss
+    #Log entropy loss
     def loss(self,Y):
         if Y==0:
             print("hello1")
@@ -46,7 +47,7 @@ class Log_Reg():
         else:
             return -np.log(Y)
 
-    #calculation of cost function using cross entropy loss
+    #calculation of cost function using Log entropy loss
     def cost(self,X,Y,a,b):
         Y_pred = self.pred(X,a,b)
         cost = 0
@@ -95,13 +96,14 @@ class Log_Reg():
         l.append(self.cost(self.X,self.Y,self.a,self.b))
         return l
     
+    #This is similar to previous class but uses approximation for sigmoid and log functions
 class Log_Reg_appx():
     def __init__( self, learning_rate, iterations ) :        
         self.learning_rate = learning_rate        
         self.iterations = iterations
         print(self.iterations,self.learning_rate)
 
-
+    # Sigmoid function approximation
     def sigmoid_appx(self,x):
         w = []
         for i in x:
@@ -137,7 +139,7 @@ class Log_Reg_appx():
             else:       #IF TURE VALUE == 1
                 cost+=self.loss(Y_pred[i])
         return cost
-#!!!!!!!------NEED WORK --------!!!!!!!!!!!
+
     def grad(self,X,Y,a,b,lr=0.05):
         c = self.cost(X,Y,a,b)
         ca = []
@@ -149,7 +151,6 @@ class Log_Reg_appx():
         ca = ca
         cb = cb
         return (ca)/lr,cb/lr
-#!!!!!!!------NEED WORK --------!!!!!!!!!!!
 
     def update_weight(self,a,b,X,Y):
         (grad_a,grad_b) = self.grad(X,Y,a,b)
