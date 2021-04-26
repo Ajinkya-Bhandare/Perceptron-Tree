@@ -3,6 +3,7 @@ SONAR DATASET
 This is a dataset that describes sonar chirp returns bouncing off different services. 
 The 60 input variables are the strength of the returns at different angles. 
 It is a binary classification problem that requires a model to differentiate rocks from metal cylinders.
+The output variable is a string “M” for mine and “R” for rock, which will need to be converted to integers 1 and 0.
 ACCURACY OBTAINED - 97%
 
 HEART - 62%
