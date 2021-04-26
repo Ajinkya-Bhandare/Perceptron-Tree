@@ -1,10 +1,19 @@
 
 SONAR DATASET
+
 This is a dataset that describes sonar chirp returns bouncing off different services. 
 The 60 input variables are the strength of the returns at different angles. 
 It is a binary classification problem that requires a model to differentiate rocks from metal cylinders.
 The output variable is a string “M” for mine and “R” for rock, which will need to be converted to integers 1 and 0.
+
 ACCURACY OBTAINED - 97%
 
 HEART - 62%
-TITANIC - 60%
+
+
+TITANIC DATASET
+
+Dataset containing the survival status of people onboard titanic taken from kaggle datasets.
+The data is preprocessed with uncorelated parameters removed, and categorical parameters being number encoded.
+
+ACCURACY OBTAINED- 60%
